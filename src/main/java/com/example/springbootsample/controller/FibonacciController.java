@@ -1,5 +1,7 @@
-package com.example.springbootsample;
+package com.example.springbootsample.controller;
 
+import com.example.springbootsample.service.FibonacciService;
+import com.example.springbootsample.service.FibonacciServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 
