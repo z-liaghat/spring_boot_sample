@@ -1,8 +1,8 @@
-package com.example.springbootsample.springsecurity;
+package com.example.springbootsample.auth;
 
 
 
-import com.example.springbootsample.springsecurity.model.User;
+import com.example.springbootsample.auth.model.User;
 import org.springframework.data.repository.CrudRepository;
 
 

@@ -1,6 +1,6 @@
-package com.example.springbootsample.springsecurity;
+package com.example.springbootsample.auth;
 
-import com.example.springbootsample.springsecurity.model.User;
+import com.example.springbootsample.auth.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

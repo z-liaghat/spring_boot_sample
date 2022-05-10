@@ -1,4 +1,4 @@
-package com.example.springbootsample.springsecurity;
+package com.example.springbootsample.auth;
 
 /**
  * Provide login and autologin after registration

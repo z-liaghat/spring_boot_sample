@@ -1,4 +1,4 @@
-package com.example.springbootsample.springsecurity.model;
+package com.example.springbootsample.auth.model;
 
 public class UserDetailsRequestModel {
     private String username;
