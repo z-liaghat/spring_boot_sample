@@ -1,9 +1,9 @@
-package com.example.springbootsample.springsecurity;
+package com.example.springbootsample.auth;
 
 
-import com.example.springbootsample.springsecurity.model.User;
+import com.example.springbootsample.auth.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,12 +12,16 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private PasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        if (findByUsername(user.getUsername()) != null) {
+            throw new IllegalArgumentException("duplicate user name");
+        } else {
+            userRepository.save(user);
+        }
     }
 
     @Override
