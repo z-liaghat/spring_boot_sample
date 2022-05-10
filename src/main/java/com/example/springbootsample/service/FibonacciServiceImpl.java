@@ -2,12 +2,15 @@ package com.example.springbootsample.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.util.Objects;
 
+@Service
 public class FibonacciServiceImpl implements FibonacciService {
     private final int cacheTtlInMinutes = 10;
+
     @Autowired
     private RedisTemplate<String, Long> redisTemplate;
 
@@ -19,8 +22,8 @@ public class FibonacciServiceImpl implements FibonacciService {
 
     @Override
     public long[] getTwoBeforeNumberCachedFibonacci(int id) {
-        Long onePreviousNumber = redisTemplate.opsForValue().get(--id + "");
-        Long twoPreviousNumber = redisTemplate.opsForValue().get(--id + "");
+        Long onePreviousNumber =  redisTemplate.opsForValue().get(--id + "");
+        Long twoPreviousNumber =  redisTemplate.opsForValue().get(--id + "");
         long[] result = new long[2];
         if (onePreviousNumber != null && twoPreviousNumber != null) {
             result[0] = twoPreviousNumber.longValue();
