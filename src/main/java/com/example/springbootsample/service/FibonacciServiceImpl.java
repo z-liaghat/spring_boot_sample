@@ -48,18 +48,18 @@ public class FibonacciServiceImpl implements FibonacciService {
     }
 
     @Override
-    public long computeFibonacci(int id) {
+    public String computeFibonacci(int id) {
         long cachedFibonacci = getCachedFibonacci(id);
         if (cachedFibonacci != -1) {
-            return cachedFibonacci;
+            return cachedFibonacci+" cached";
         }
         long[] twoFibonacci = getTwoBeforeNumberCachedFibonacci(id);
         if (twoFibonacci != null) {
-            return twoFibonacci[0] + twoFibonacci[1];
+            return twoFibonacci[0] + twoFibonacci[1] +" cached";
         }
 
         if (id < 0) {
-            return -1;
+            return -1+"";
         }
         int fibonacciArrayLength = id + 1;
         final long[] fibo = new long[fibonacciArrayLength];
@@ -72,7 +72,7 @@ public class FibonacciServiceImpl implements FibonacciService {
             fibo[index] = fibo[index - 1] + fibo[index - 2];
         }
         saveToCache(fibo);
-        return fibo[fibonacciArrayLength - 1];
+        return fibo[fibonacciArrayLength - 1]+"";
     }
 
 

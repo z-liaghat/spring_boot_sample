@@ -12,8 +12,8 @@ public class FibonacciController {
     private FibonacciService fibonacciService;
 
     @GetMapping("/fibo")
-    public long getFibonacci(@RequestParam(value = "length", defaultValue = "1") int length) {
-        long fibonacciResult = fibonacciService.computeFibonacci(length);
+    public String getFibonacci(@RequestParam(value = "length", defaultValue = "1") int length) {
+        String fibonacciResult = fibonacciService.computeFibonacci(length);
         return fibonacciResult;
     }
 }
