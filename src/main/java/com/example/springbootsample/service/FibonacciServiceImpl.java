@@ -4,8 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.time.Duration;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.Objects;
+import com.cronutils.model.time.ExecutionTime;
 
 @Service
 public class FibonacciServiceImpl implements FibonacciService {
@@ -22,8 +26,8 @@ public class FibonacciServiceImpl implements FibonacciService {
 
     @Override
     public long[] getTwoBeforeNumberCachedFibonacci(int id) {
-        Long onePreviousNumber =  redisTemplate.opsForValue().get(--id + "");
-        Long twoPreviousNumber =  redisTemplate.opsForValue().get(--id + "");
+        Long onePreviousNumber = redisTemplate.opsForValue().get(--id + "");
+        Long twoPreviousNumber = redisTemplate.opsForValue().get(--id + "");
         long[] result = new long[2];
         if (onePreviousNumber != null && twoPreviousNumber != null) {
             result[0] = twoPreviousNumber.longValue();
@@ -40,9 +44,6 @@ public class FibonacciServiceImpl implements FibonacciService {
         Boolean isAbsent;
         for (int i = 0; i < fibonacciArray.length; i++) {
             isAbsent = redisTemplate.opsForValue().setIfAbsent(i + "", fibonacciArray[i], ttlDuration);
-            if (isAbsent != null && !isAbsent) {
-                redisTemplate.opsForValue().set(i + "", fibonacciArray[i], ttlDuration);
-            }
         }
 
     }
@@ -51,15 +52,15 @@ public class FibonacciServiceImpl implements FibonacciService {
     public String computeFibonacci(int id) {
         long cachedFibonacci = getCachedFibonacci(id);
         if (cachedFibonacci != -1) {
-            return cachedFibonacci+" cached";
+            return cachedFibonacci + " cached";
         }
         long[] twoFibonacci = getTwoBeforeNumberCachedFibonacci(id);
         if (twoFibonacci != null) {
-            return twoFibonacci[0] + twoFibonacci[1] +" cached";
+            return twoFibonacci[0] + twoFibonacci[1] + " cached";
         }
 
         if (id < 0) {
-            return -1+"";
+            return -1 + "";
         }
         int fibonacciArrayLength = id + 1;
         final long[] fibo = new long[fibonacciArrayLength];
@@ -72,7 +73,7 @@ public class FibonacciServiceImpl implements FibonacciService {
             fibo[index] = fibo[index - 1] + fibo[index - 2];
         }
         saveToCache(fibo);
-        return fibo[fibonacciArrayLength - 1]+"";
+        return fibo[fibonacciArrayLength - 1] + "";
     }
 
 
